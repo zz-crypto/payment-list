@@ -2,6 +2,7 @@ import json
 import csv
 from web3 import Web3
 from datetime import datetime, timedelta
+from web3.middleware import geth_poa_middleware
 
 def get_balance(w3, address):
     balance = w3.eth.get_balance(address)
@@ -85,6 +86,24 @@ def check_balances_and_events(config, adapter_abi, node_registry_abi):
                 # For other chains, only check if balance is greater than 0.05
                 if balance < 0.05:
                     insufficient_chains.append(str(chain['chain_id']))
+                
+                w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+                # Get block range for last 30 days
+                current_block = w3.eth.get_block('latest')['number']
+                current_timestamp = w3.eth.get_block('latest')['timestamp']
+                from_timestamp = current_timestamp - (30 * 24 * 60 * 60)  # 30 days ago
+                from_block = get_block_number_by_timestamp(w3, from_timestamp, 'before')
+                
+                # Check adapter events
+                adapter_events = get_adapter_events(w3, chain['adapter_contract_address'], from_block, current_block, adapter_abi)
+                
+                participated = False
+                for event in adapter_events:
+                    if address in event['args']['participantMembers']:
+                        participated = True
+                        break
+                
+                event_participation[chain['chain_id']] = participated
             
             if is_slashed:
                 break  # No need to check other chains if slashed
