@@ -1,0 +1,1784 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "DEFAULT_MINIMUM_THRESHOLD",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MAX_CONSUMERS",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint16",
+        "internalType": "uint16"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MAX_REQUEST_CONFIRMATIONS",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint16",
+        "internalType": "uint16"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "RANDOMNESS_REWARD_GAS",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "VERIFICATION_GAS_OVER_MINIMUM_THRESHOLD",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "addConsumer",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "consumer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelOvertimeRequest",
+    "inputs": [
+      {
+        "name": "requestId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "requestDetail",
+        "type": "tuple",
+        "internalType": "struct IAdapter.RequestDetail",
+        "components": [
+          {
+            "name": "subId",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "groupIndex",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "requestType",
+            "type": "uint8",
+            "internalType": "enum IRequestTypeBase.RequestType"
+          },
+          {
+            "name": "params",
+            "type": "bytes",
+            "internalType": "bytes"
+          },
+          {
+            "name": "callbackContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "seed",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "requestConfirmations",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "callbackGasLimit",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "callbackMaxGasPrice",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "blockNum",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelSubscription",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "to",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createSubscription",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "estimatePaymentAmountInETH",
+    "inputs": [
+      {
+        "name": "callbackGasLimit",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "gasExceptCallback",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "fulfillmentFlatFeeEthPPM",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "weiPerUnitGas",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "groupSize",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "fulfillRandomness",
+    "inputs": [
+      {
+        "name": "groupIndex",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "requestId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "signature",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "requestDetail",
+        "type": "tuple",
+        "internalType": "struct IAdapter.RequestDetail",
+        "components": [
+          {
+            "name": "subId",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "groupIndex",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "requestType",
+            "type": "uint8",
+            "internalType": "enum IRequestTypeBase.RequestType"
+          },
+          {
+            "name": "params",
+            "type": "bytes",
+            "internalType": "bytes"
+          },
+          {
+            "name": "callbackContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "seed",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "requestConfirmations",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "callbackGasLimit",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "callbackMaxGasPrice",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "blockNum",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      },
+      {
+        "name": "partialSignatures",
+        "type": "tuple[]",
+        "internalType": "struct IAdapter.PartialSignature[]",
+        "components": [
+          {
+            "name": "index",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "partialSignature",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "fundSubscription",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "getAdapterConfig",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "minimumRequestConfirmations",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "maxGasLimit",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "gasAfterPaymentCalculation",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "gasExceptCallback",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "signatureTaskExclusiveWindow",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "rewardPerSignature",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "committerRewardPerSignature",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getController",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getCumulativeData",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getCurrentSubId",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getFeeTier",
+    "inputs": [
+      {
+        "name": "reqCount",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getFlatFeeConfig",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "fulfillmentFlatFeeLinkPPMTier1",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "fulfillmentFlatFeeLinkPPMTier2",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "fulfillmentFlatFeeLinkPPMTier3",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "fulfillmentFlatFeeLinkPPMTier4",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "fulfillmentFlatFeeLinkPPMTier5",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "reqsForTier2",
+        "type": "uint24",
+        "internalType": "uint24"
+      },
+      {
+        "name": "reqsForTier3",
+        "type": "uint24",
+        "internalType": "uint24"
+      },
+      {
+        "name": "reqsForTier4",
+        "type": "uint24",
+        "internalType": "uint24"
+      },
+      {
+        "name": "reqsForTier5",
+        "type": "uint24",
+        "internalType": "uint24"
+      },
+      {
+        "name": "flatFeePromotionGlobalPercentage",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "isFlatFeePromotionEnabledPermanently",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "flatFeePromotionStartTimestamp",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "flatFeePromotionEndTimestamp",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getLastAssignedGroupIndex",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getLastRandomness",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getLastSubscription",
+    "inputs": [
+      {
+        "name": "consumer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getPendingRequestCommitment",
+    "inputs": [
+      {
+        "name": "requestId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getRandomnessCount",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getReferralConfig",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "isReferralEnabled",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "freeRequestCountForReferrer",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "freeRequestCountForReferee",
+        "type": "uint16",
+        "internalType": "uint16"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getSubscription",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "consumers",
+        "type": "address[]",
+        "internalType": "address[]"
+      },
+      {
+        "name": "balance",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "inflightCost",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "reqCount",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "freeRequestCount",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "referralSubId",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "reqCountInCurrentPeriod",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "lastRequestTimestamp",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "initialize",
+    "inputs": [
+      {
+        "name": "controller",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "nodeWithdrawETH",
+    "inputs": [
+      {
+        "name": "recipient",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "ethAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "ownerCancelSubscription",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "proxiableUUID",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "removeConsumer",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "consumer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "renounceOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "requestRandomness",
+    "inputs": [
+      {
+        "name": "params",
+        "type": "tuple",
+        "internalType": "struct IAdapter.RandomnessRequestParams",
+        "components": [
+          {
+            "name": "requestType",
+            "type": "uint8",
+            "internalType": "enum IRequestTypeBase.RequestType"
+          },
+          {
+            "name": "params",
+            "type": "bytes",
+            "internalType": "bytes"
+          },
+          {
+            "name": "subId",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "seed",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "requestConfirmations",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "callbackGasLimit",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "callbackMaxGasPrice",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setAdapterConfig",
+    "inputs": [
+      {
+        "name": "minimumRequestConfirmations",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "maxGasLimit",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "gasAfterPaymentCalculation",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "gasExceptCallback",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "signatureTaskExclusiveWindow",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "rewardPerSignature",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "committerRewardPerSignature",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setFlatFeeConfig",
+    "inputs": [
+      {
+        "name": "flatFeeConfig",
+        "type": "tuple",
+        "internalType": "struct IAdapterOwner.FeeConfig",
+        "components": [
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier1",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier2",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier3",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier4",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier5",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "reqsForTier2",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "reqsForTier3",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "reqsForTier4",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "reqsForTier5",
+            "type": "uint24",
+            "internalType": "uint24"
+          }
+        ]
+      },
+      {
+        "name": "flatFeePromotionGlobalPercentage",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "isFlatFeePromotionEnabledPermanently",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "flatFeePromotionStartTimestamp",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "flatFeePromotionEndTimestamp",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setFreeRequestCount",
+    "inputs": [
+      {
+        "name": "subIds",
+        "type": "uint64[]",
+        "internalType": "uint64[]"
+      },
+      {
+        "name": "freeRequestCounts",
+        "type": "uint64[]",
+        "internalType": "uint64[]"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setReferral",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "referralSubId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setReferralConfig",
+    "inputs": [
+      {
+        "name": "isReferralEnabled",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "freeRequestCountForReferrer",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "freeRequestCountForReferee",
+        "type": "uint16",
+        "internalType": "uint16"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "transferOwnership",
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "upgradeTo",
+    "inputs": [
+      {
+        "name": "newImplementation",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "upgradeToAndCall",
+    "inputs": [
+      {
+        "name": "newImplementation",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "data",
+        "type": "bytes",
+        "internalType": "bytes"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "event",
+    "name": "AdapterConfigSet",
+    "inputs": [
+      {
+        "name": "minimumRequestConfirmations",
+        "type": "uint16",
+        "indexed": false,
+        "internalType": "uint16"
+      },
+      {
+        "name": "maxGasLimit",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
+        "name": "gasAfterPaymentCalculation",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
+        "name": "gasExceptCallback",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
+        "name": "signatureTaskExclusiveWindow",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "rewardPerSignature",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "committerRewardPerSignature",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "AdminChanged",
+    "inputs": [
+      {
+        "name": "previousAdmin",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "newAdmin",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BeaconUpgraded",
+    "inputs": [
+      {
+        "name": "beacon",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "FlatFeeConfigSet",
+    "inputs": [
+      {
+        "name": "flatFeeConfig",
+        "type": "tuple",
+        "indexed": false,
+        "internalType": "struct IAdapterOwner.FeeConfig",
+        "components": [
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier1",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier2",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier3",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier4",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "fulfillmentFlatFeeEthPPMTier5",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "reqsForTier2",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "reqsForTier3",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "reqsForTier4",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "reqsForTier5",
+            "type": "uint24",
+            "internalType": "uint24"
+          }
+        ]
+      },
+      {
+        "name": "flatFeePromotionGlobalPercentage",
+        "type": "uint16",
+        "indexed": false,
+        "internalType": "uint16"
+      },
+      {
+        "name": "isFlatFeePromotionEnabledPermanently",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      },
+      {
+        "name": "flatFeePromotionStartTimestamp",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "flatFeePromotionEndTimestamp",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OvertimeRequestCanceled",
+    "inputs": [
+      {
+        "name": "requestId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RandomnessRequest",
+    "inputs": [
+      {
+        "name": "requestId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "groupIndex",
+        "type": "uint32",
+        "indexed": true,
+        "internalType": "uint32"
+      },
+      {
+        "name": "requestType",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "enum IRequestTypeBase.RequestType"
+      },
+      {
+        "name": "params",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      },
+      {
+        "name": "sender",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "seed",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "requestConfirmations",
+        "type": "uint16",
+        "indexed": false,
+        "internalType": "uint16"
+      },
+      {
+        "name": "callbackGasLimit",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
+        "name": "callbackMaxGasPrice",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "estimatedPayment",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RandomnessRequestResult",
+    "inputs": [
+      {
+        "name": "requestId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "groupIndex",
+        "type": "uint32",
+        "indexed": true,
+        "internalType": "uint32"
+      },
+      {
+        "name": "committer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "participantMembers",
+        "type": "address[]",
+        "indexed": false,
+        "internalType": "address[]"
+      },
+      {
+        "name": "randommness",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "payment",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "flatFee",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "success",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ReferralConfigSet",
+    "inputs": [
+      {
+        "name": "isReferralEnabled",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      },
+      {
+        "name": "freeRequestCountForReferrer",
+        "type": "uint16",
+        "indexed": false,
+        "internalType": "uint16"
+      },
+      {
+        "name": "freeRequestCountForReferee",
+        "type": "uint16",
+        "indexed": false,
+        "internalType": "uint16"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SubscriptionCanceled",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "to",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SubscriptionConsumerAdded",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "consumer",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SubscriptionConsumerRemoved",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "consumer",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SubscriptionCreated",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "owner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SubscriptionFunded",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "oldBalance",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "newBalance",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SubscriptionReferralSet",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "referralSubId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Upgraded",
+    "inputs": [
+      {
+        "name": "implementation",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "AtLeastOneRequestIsRequired",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "EmptyPartialSignatures",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ExceedCallbackMaxGasPrice",
+    "inputs": [
+      {
+        "name": "have",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "want",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "GasLimitTooBig",
+    "inputs": [
+      {
+        "name": "have",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "want",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "GroupNotExist",
+    "inputs": [
+      {
+        "name": "groupIndex",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "IdenticalSubscription",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "IncorrectCommitment",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InsufficientBalanceWhenFulfill",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InsufficientBalanceWhenRequest",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidConsumer",
+    "inputs": [
+      {
+        "name": "subId",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "consumer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InvalidPartialSignatureFormat",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidPartialSignatures",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidRequestByEOA",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidRequestConfirmations",
+    "inputs": [
+      {
+        "name": "have",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "min",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "max",
+        "type": "uint16",
+        "internalType": "uint16"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InvalidSignature",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidSignatureFormat",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidSubscription",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidZeroAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "MustBeSubOwner",
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "NoAvailableGroups",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NoCorrespondingRequest",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NotFromCommitter",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "PendingRequestExists",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Reentrant",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ReferralPromotionDisabled",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "RequestNotExpired",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "SenderNotController",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "SubscriptionAlreadyHasReferral",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "TaskStillExclusive",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "TaskStillWithinRequestConfirmations",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "TooManyConsumers",
+    "inputs": []
+  }
+]
