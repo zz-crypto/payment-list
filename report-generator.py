@@ -57,10 +57,10 @@ def check_balances_and_events(config, adapter_abi, node_registry_abi):
                 if balance < 0.2:
                     insufficient_chains.append(str(chain['chain_id']))
                 
-                # Get block range for last 31 days
+                # Get block range for last 30 days
                 current_block = w3.eth.get_block('latest')['number']
                 current_timestamp = w3.eth.get_block('latest')['timestamp']
-                from_timestamp = current_timestamp - (31 * 24 * 60 * 60)  # 31 days ago
+                from_timestamp = current_timestamp - (30 * 24 * 60 * 60)  # 30 days ago
                 from_block = get_block_number_by_timestamp(w3, from_timestamp, 'before')
                 
                 # Check adapter events
