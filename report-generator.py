@@ -4,10 +4,6 @@ from web3 import Web3
 from datetime import datetime, timedelta
 from web3.middleware import geth_poa_middleware
 
-def get_balance(w3, address):
-    balance = w3.eth.get_balance(address)
-    return Web3.from_wei(balance, 'ether')
-
 def load_abi(filename):
     with open(filename, 'r') as f:
         return json.load(f)
@@ -36,91 +32,73 @@ def get_block_number_by_timestamp(w3, timestamp, direction='before'):
         else:
             right = mid - 1
     
-    if direction == 'before':
-        return right
-    else:
-        return left
+    return right if direction == 'before' else left
+
+def get_balance(w3, address):
+    balance_wei = w3.eth.get_balance(address)
+    return w3.from_wei(balance_wei, 'ether')
+
+def fetch_adapter_events(w3, chain, adapter_abi):
+    current_block = w3.eth.get_block('latest')['number']
+    current_timestamp = w3.eth.get_block('latest')['timestamp']
+    from_timestamp = current_timestamp - (30 * 24 * 60 * 60)  # 30 days ago
+    from_block = get_block_number_by_timestamp(w3, from_timestamp, 'before')
+    
+    return get_adapter_events(w3, chain['adapter_contract_address'], from_block, current_block, adapter_abi)
+
+def fetch_node_registry_events(w3, chain, node_registry_abi):
+    current_block = w3.eth.get_block('latest')['number']
+    current_timestamp = w3.eth.get_block('latest')['timestamp']
+    from_timestamp = current_timestamp - (30 * 24 * 60 * 60)  # 30 days ago
+    from_block = get_block_number_by_timestamp(w3, from_timestamp, 'before')
+    
+    return get_node_registry_events(w3, chain['node_registry_contract_address'], from_block, current_block, node_registry_abi)
+
+def process_events(adapter_events, addresses):
+    participation = {addr: False for addr in addresses}
+    
+    for event in adapter_events:
+        for participant in event['args']['participantMembers']:
+            if participant.lower() in [addr.lower() for addr in addresses]:
+                participation[next(addr for addr in addresses if addr.lower() == participant.lower())] = True
+    
+    return participation
 
 def check_balances_and_events(config, adapter_abi, node_registry_abi):
-    results = []
-    for address in config['node_addresses']:
-        insufficient_chains = []
-        event_participation = {}
-        is_slashed = False
-        
-        for chain in config['chains']:
-            w3 = Web3(Web3.HTTPProvider(chain['rpc_endpoint']))
-            
-            # Check balance
-            balance = get_balance(w3, address)
-            if chain['chain_id'] == 1:
-                # For chain_id 1, check both balance and events
-                if balance < 0.2:
-                    insufficient_chains.append(str(chain['chain_id']))
-                
-                # Get block range for last 30 days
-                current_block = w3.eth.get_block('latest')['number']
-                current_timestamp = w3.eth.get_block('latest')['timestamp']
-                from_timestamp = current_timestamp - (30 * 24 * 60 * 60)  # 30 days ago
-                from_block = get_block_number_by_timestamp(w3, from_timestamp, 'before')
-                
-                # Check adapter events
-                adapter_events = get_adapter_events(w3, chain['adapter_contract_address'], from_block, current_block, adapter_abi)
-                
-                participated = False
-                for event in adapter_events:
-                    if address in event['args']['participantMembers']:
-                        participated = True
-                        break
-                
-                event_participation[chain['chain_id']] = participated
-                
-                # Check node registry events
-                node_registry_events = get_node_registry_events(w3, chain['node_registry_contract_address'], from_block, current_block, node_registry_abi)
-                
-                for event in node_registry_events:
-                    if event['args']['nodeIdAddress'] == address:
-                        is_slashed = True
-                        break
-            else:
-                # For other chains, only check if balance is greater than 0.05
-                if balance < 0.05:
-                    insufficient_chains.append(str(chain['chain_id']))
-                
-                w3.middleware_onion.inject(geth_poa_middleware, layer=0)
-                # Get block range for last 30 days
-                current_block = w3.eth.get_block('latest')['number']
-                current_timestamp = w3.eth.get_block('latest')['timestamp']
-                from_timestamp = current_timestamp - (30 * 24 * 60 * 60)  # 30 days ago
-                from_block = get_block_number_by_timestamp(w3, from_timestamp, 'before')
-                
-                # Check adapter events
-                adapter_events = get_adapter_events(w3, chain['adapter_contract_address'], from_block, current_block, adapter_abi)
-                
-                participated = False
-                for event in adapter_events:
-                    if address in event['args']['participantMembers']:
-                        participated = True
-                        break
-                
-                event_participation[chain['chain_id']] = participated
-            
-            if is_slashed:
-                break  # No need to check other chains if slashed
-        
-        is_sufficient = len(insufficient_chains) == 0
-        is_participating = event_participation.get(1, False)  # Only check participation for chain_id 1
-        
-        results.append({
-            'Address': address,
-            'Insufficient Chain Ids': '|'.join(insufficient_chains),
-            'Is Sufficient': is_sufficient,
-            'Has Participated in Randomness Tasks': is_participating,
-            'Has Been Slashed': is_slashed,
-            'Overall Status': is_sufficient and is_participating and not is_slashed
-        })
+    results = {addr: {'Address': addr, 'Insufficient Chain Ids': [], 'Is Sufficient': True, 'Has Participated in Randomness Tasks': False, 'Has Been Slashed': False, 'Balances': []} for addr in config['node_addresses']}
     
-    return results
+    for chain in config['chains']:
+        w3 = Web3(Web3.HTTPProvider(chain['rpc_endpoint']))
+        if chain['chain_id'] != 1:
+            w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+        
+        adapter_events = fetch_adapter_events(w3, chain, adapter_abi)
+        participation = process_events(adapter_events, config['node_addresses'])
+        
+        for address in config['node_addresses']:
+            balance = get_balance(w3, address)
+            results[address]['Balances'].append(f"{chain['chain_id']}:{balance:.4f}")
+            
+            if (chain['chain_id'] == 1 and balance < 0.2) or (chain['chain_id'] != 1 and balance < 0.05):
+                results[address]['Insufficient Chain Ids'].append(str(chain['chain_id']))
+                results[address]['Is Sufficient'] = False
+            
+            if participation[address]:
+                results[address]['Has Participated in Randomness Tasks'] = True
+        
+        if chain['chain_id'] == 1:
+            node_registry_events = fetch_node_registry_events(w3, chain, node_registry_abi)
+            for event in node_registry_events:
+                slashed_address = event['args']['nodeIdAddress']
+                if slashed_address in results:
+                    results[slashed_address]['Has Been Slashed'] = True
+    
+    for address, data in results.items():
+        data['Insufficient Chain Ids'] = '|'.join(data['Insufficient Chain Ids'])
+        data['Balances'] = '|'.join(data['Balances'])
+        data['Overall Status'] = data['Is Sufficient'] and data['Has Participated in Randomness Tasks'] and not data['Has Been Slashed']
+    
+    return list(results.values())
 
 def main():
     with open('config.json', 'r') as f:
@@ -132,7 +110,7 @@ def main():
     results = check_balances_and_events(config, adapter_abi, node_registry_abi)
     
     with open('balance_event_and_slash_check_results.csv', 'w', newline='') as csvfile:
-        fieldnames = ['Address', 'Insufficient Chain Ids', 'Is Sufficient', 'Has Participated in Randomness Tasks', 'Has Been Slashed', 'Overall Status']
+        fieldnames = ['Address', 'Insufficient Chain Ids', 'Is Sufficient', 'Has Participated in Randomness Tasks', 'Has Been Slashed', 'Overall Status', 'Balances']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
         writer.writeheader()
